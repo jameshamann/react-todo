@@ -44,6 +44,23 @@
   
   <script type="text/babel">
     var destination = document.querySelector("#container");
+    var TodoTasks = React.createClass({
+      render: function() {
+        var todoEntries = this.props.entries;
+
+        function createTasks(task) {
+          return <li key={task.key}>{task.text}</li>
+        }
+
+        var listTasks = todoEntries.map(createTasks);
+        return (
+          <ul className="theList">
+            {listTasks}
+          </ul>
+        );
+      }
+    });
+
     var TodoList = React.createClass({
       getInitialSate: function() {
         return {
@@ -81,6 +98,7 @@
                 <button type="submit">Add task!</button>
               </form>
             </div>
+            <TodoTasks entries={this.state.tasks}/>
           </div>
         )
       }
