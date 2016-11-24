@@ -47,11 +47,27 @@
     var TodoList = React.createClass({
       getInitialSate: function() {
         return {
-          items: []
+          tasks: []
         };
       },
 
-      addItem: function(x) {
+      addTask: function(task) {
+        var taskArray = this.state.tasks;
+
+        taskArray.push(
+          {
+            text: this._inputElement.value,
+            key: Date.now()
+          }
+        );
+
+        this.setState({
+          tasks: taskArray
+        });
+
+        this._inputElement.value = "";
+
+        task.preventDefault();
 
       },
 
@@ -59,8 +75,8 @@
         return (
           <div className="todoListMain">
             <div className="header">
-              <form onSubmit={this.addItem}>
-                <input placeholder="Enter task!">
+              <form onSubmit={this.addTask}>
+                <input ref={(task) => this._inputElement = task} placeholder="Enter task!">
                 </input>
                 <button type="submit">Add task!</button>
               </form>
